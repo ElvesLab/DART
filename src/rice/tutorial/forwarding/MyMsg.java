@@ -69,9 +69,17 @@ public class MyMsg implements Message {
   public String toString() {
     String path = "";
     for (int i = 0; i < passport.size(); i++) {
-      path+=passport.get(i)+",";
+      int j = i + 1;
+      path+="The " + j + " level " + passport.get(i).getId().toString() + ", ";
+//      passport.get(i).getId().
     }
-    return "MyMsg along path "+path;
+//    return "MyMsg along path "+path;
+
+    for (int j = 0; j < neighbors.size(); j++) {
+      int k = j + 1;
+      path += k + " level Neighbor " + neighbors.get(j) + ", ";
+    }
+    return path;
   }
 
   /**
@@ -82,7 +90,17 @@ public class MyMsg implements Message {
   }
 
   ArrayList<NodeHandle> passport = new ArrayList<NodeHandle>();
+  ArrayList<String> neighbors = new ArrayList<>();
   public void addHop(NodeHandle hop) {
     passport.add(hop);
+    /**
+     * Returns an Id corresponding to this Id plus a given distance
+     *
+     * @param offset the distance to add
+     * @return the new Id
+     */
+    //    public Id addToId(Distance offset);
+    Id.Distance ccwHalfDistance = hop.getId().distanceFromId(hop.getId()).shiftDistance(2,0);
+    neighbors.add(hop.getId().addToId(ccwHalfDistance).toString());
   }
 }

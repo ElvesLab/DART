@@ -77,7 +77,7 @@ public class MyApp implements Application {
    * Called to route a message to the id
    */
   public void routeMyMsg(Id id) {
-    System.out.println(this+" sending to "+id);    
+    //System.out.println(this+" sending to "+id);
     Message msg = new MyMsg(endpoint.getId(), id);
     endpoint.route(id, msg, null);
   }

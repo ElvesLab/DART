@@ -39,8 +39,7 @@ package rice.tutorial.forwarding;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
 
 import rice.environment.Environment;
 import rice.p2p.commonapi.Id;
@@ -97,7 +96,7 @@ public class DistTutorial {
       synchronized(node) {
         while(!node.isReady() && !node.joinFailed()) {
           // delay so we don't busy-wait
-          node.wait(500);
+          node.wait(10);
           
           // abort if can't join
           if (node.joinFailed()) {
@@ -110,20 +109,31 @@ public class DistTutorial {
     }
       
     // wait 10 seconds
-    env.getTimeSource().sleep(10000);
+    env.getTimeSource().sleep(3000);
 
-      
-    // route 10 messages
+    //[PL20190113] Comments out the random pickup code, since we need to fix the sink node
+    //    // pick a key at random
+    //    Id randId = nidFactory.generateNodeId();
+    //[PL20190113] To create the ArrayList for saving sink nodes
+    List<Id> listGateway = new ArrayList();
     for (int i = 0; i < 10; i++) {
-        
-      // for each app
+      listGateway.add(nidFactory.generateNodeId());
+    }
+    // for each app
       Iterator<MyApp> appIterator = apps.iterator();
-      while(appIterator.hasNext()) {
+    // route messages
+    for (int i = 0; i < 20; i++) {
+        
+//      // for each app
+//      Iterator<MyApp> appIterator = apps.iterator();
+      if(appIterator.hasNext()) {
         MyApp app = (MyApp)appIterator.next();
         
-        // pick a key at random
-        Id randId = nidFactory.generateNodeId();
-        
+//        // pick a key at random
+//        Id randId = nidFactory.generateNodeId();
+        Random randomGenerator = new Random();
+        int index = randomGenerator.nextInt(listGateway.size());
+        Id randId = listGateway.get(index);
         // send to that key
         app.routeMyMsg(randId);
         
@@ -131,33 +141,33 @@ public class DistTutorial {
         env.getTimeSource().sleep(100);
       }
     }
-    // wait 1 second
-    env.getTimeSource().sleep(1000);
-      
-    // for each app
-    Iterator<MyApp> appIterator = apps.iterator();
-    while(appIterator.hasNext()) {
-      MyApp app = (MyApp)appIterator.next();
-      PastryNode node = (PastryNode)app.getNode();
-      
-      // send directly to my leafset
-      LeafSet leafSet = node.getLeafSet();
-      
-      // this is a typical loop to cover your leafset.  Note that if the leafset
-      // overlaps, then duplicate nodes will be sent to twice
-      for (int i=-leafSet.ccwSize(); i<=leafSet.cwSize(); i++) {
-        if (i != 0) { // don't send to self
-          // select the item
-          NodeHandle nh = leafSet.get(i);
-          
-          // send the message directly to the node
-          app.routeMyMsgDirect(nh);   
-          
-          // wait a bit
-          env.getTimeSource().sleep(100);
-        }
-      }
-    }
+//    // wait 1 second
+//    env.getTimeSource().sleep(1000);
+//
+//    // for each app
+//    Iterator<MyApp> appIterator = apps.iterator();
+//    while(appIterator.hasNext()) {
+//      MyApp app = (MyApp)appIterator.next();
+//      PastryNode node = (PastryNode)app.getNode();
+//
+//      // send directly to my leafset
+//      LeafSet leafSet = node.getLeafSet();
+//
+//      // this is a typical loop to cover your leafset.  Note that if the leafset
+//      // overlaps, then duplicate nodes will be sent to twice
+//      for (int i=-leafSet.ccwSize(); i<=leafSet.cwSize(); i++) {
+//        if (i != 0) { // don't send to self
+//          // select the item
+//          NodeHandle nh = leafSet.get(i);
+//
+//          // send the message directly to the node
+//          app.routeMyMsgDirect(nh);
+//
+//          // wait a bit
+//          env.getTimeSource().sleep(100);
+//        }
+//      }
+//    }
   }
 
   /**

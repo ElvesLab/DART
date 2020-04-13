@@ -130,7 +130,7 @@ public class MyScribeClient implements ScribeClient, Application {
    */
   public void deliver(Id id, Message message) {
     if (message instanceof PublishContent) {
-      sendMulticast();
+      //sendMulticast();
       sendAnycast();
     }
   }
@@ -172,7 +172,8 @@ public class MyScribeClient implements ScribeClient, Application {
    */
   public boolean anycast(Topic topic, ScribeContent content) {
     boolean returnValue = myScribe.getEnvironment().getRandomSource().nextInt(3) == 0;
-    System.out.println("MyScribeClient.anycast("+topic+","+content+"):"+returnValue);
+    if (endpoint != null)
+      System.out.println("MyScribeClient.anycast("+topic+","+content+"):" + endpoint.toString() + returnValue);
     return returnValue;
   }
 

@@ -42,6 +42,7 @@ advised of the possibility of such damage.
  */
 package rice.tutorial.forwarding;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 import rice.p2p.commonapi.Application;
@@ -109,7 +110,15 @@ public class MyApp implements Application {
    * Called when we receive a message.
    */
   public void deliver(Id id, Message message) {
-    System.out.println(this+" received "+message);
+    //System.out.println(this+" received "+message);
+    try {
+      FileWriter writer = new FileWriter("MyFile.txt", true);
+      writer.write(message.toString());
+      writer.write("\r\n");   // write new line
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**

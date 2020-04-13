@@ -109,7 +109,7 @@ public class LookupServiceTest {
     }
 
     // wait 10 seconds
-    env.getTimeSource().sleep(10000);
+    env.getTimeSource().sleep(5000);
 
     for (LookupService ls : lookups) {
       final Id id = nidFactory.generateNodeId();
