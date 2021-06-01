@@ -5,10 +5,15 @@ Many Internet of Things (IoT) applications are time-critical and dynamically cha
 We present Dart, a scalable and adaptive edge stream processing engine that enables fast processing of a large number of concurrent running IoT applications’ queries in dynamic edge environments. The novelty of our work is the introduction of a dynamic dataflow abstraction by leveraging distributed hash table (DHT) based peer-to-peer (P2P) overlay networks, which can automatically place, chain, and scale stream operators to reduce query latency, adapt to edge dynamics, and recover from failures. 
 
 Below jar parckages are required to perform the routing and failover. 
+
 Failure recovery is configrable based on requirments. The experiments were performed based on stream processing engine of Apache Flume. 
 
 FreePastry-2.1.jar
+
 JavaReedSolomon-master.main.jar
+
 mongo-java-driver-3.11.0.jar
+
 xmlpull_1_1_3_4a.jar
+
 xpp3-1.1.1.3.4d_b2.jar
