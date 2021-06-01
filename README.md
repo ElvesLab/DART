@@ -18,4 +18,4 @@ xmlpull_1_1_3_4a.jar
 
 xpp3-1.1.1.3.4d_b2.jar
 
-DEBS 2015 Grand Challenge of Distributed Event data can be accessed from this [respository](https://github.com/komushi/grand-challenge-debs2015). 
+DEBS 2015 Grand Challenge of Distributed Event input data can be accessed from this [respository](https://github.com/komushi/grand-challenge-debs2015). 
