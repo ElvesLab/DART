@@ -62,7 +62,7 @@ limitations under the License.
     <curator.version>5.1.0</curator.version>
     <derby.version>10.14.1.0</derby.version>
     <dropwizard-metrics.version>4.1.18</dropwizard-metrics.version>
-    <elasticsearch.version>0.90.1</elasticsearch.version>
+    <elasticsearch.version>6.8.15</elasticsearch.version>
     <fasterxml.jackson.version>2.9.10</fasterxml.jackson.version>
     <fest-reflect.version>1.4</fest-reflect.version>
     <geronimo-jms.version>1.1.1</geronimo-jms.version>
